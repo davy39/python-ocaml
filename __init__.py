@@ -31,7 +31,7 @@ def _register_ipython_magic():
 
         @register_cell_magic
         def ocaml(line, cell):
-            return toploop.eval(cell)
+            return toploop.eval(cell, verbose=True)
 
         del ocaml
     except:
