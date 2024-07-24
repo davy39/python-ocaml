@@ -11,7 +11,6 @@ toploop.add_topdir(_topdir)
 
 def _register_ipython_magic():
     try:
-        from wurlitzer import sys_pipes
         from IPython.core.magic import register_line_magic, register_cell_magic
 
         # [@register_line_magic] registers itself as a side effect thus
@@ -19,23 +18,20 @@ def _register_ipython_magic():
 
         @register_line_magic
         def ocaml(line):
-            with sys_pipes():
-                return toploop.get(line)
+            return toploop.get(line)
 
         del ocaml
 
         @register_line_magic
         def ocaml_t(line):
             type_, body = line.split(":", maxsplit=1)
-            with sys_pipes():
-                return toploop.get(type_, body)
+            return toploop.get(type_, body)
 
         del ocaml_t
 
         @register_cell_magic
         def ocaml(line, cell):
-            with sys_pipes():
-                return toploop.eval(cell)
+            return toploop.eval(cell)
 
         del ocaml
     except:
